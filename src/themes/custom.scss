@@ -1,0 +1,6 @@
+$darkTeal: #1d7874;
+$theme-colors: (
+  'primary': $darkTeal,
+);
+
+@import '~bootstrap/scss/bootstrap.scss';

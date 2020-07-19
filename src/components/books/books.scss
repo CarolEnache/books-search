@@ -1,0 +1,11 @@
+.book {
+  margin-bottom: 1rem;
+
+  &__card {
+    min-height: 15rem;
+  }
+
+  &__authors {
+    color: grey;
+  }
+}
