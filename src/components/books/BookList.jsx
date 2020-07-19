@@ -22,12 +22,11 @@ const reduceArrayIntoGroupsOf3 = (array = []) => {
 
 const BookList = ({ response = [] }) => {
   const arrayOfRows = !!response && reduceArrayIntoGroupsOf3(response.books);
-  console.log(arrayOfRows);
 
   return (
     !!arrayOfRows &&
     arrayOfRows.map((row) => (
-      <Row>
+      <Row key={Math.random()}>
         {row.map(
           ({
             book_pages,
@@ -36,8 +35,9 @@ const BookList = ({ response = [] }) => {
             book_publication_year,
             book_title,
             book_author,
+            id,
           }) => (
-            <Col xs='12' lg='4' className='book'>
+            <Col xs='12' lg='4' className='book' key={id}>
               <Card className='book__card'>
                 <Card.Body>
                   <Card.Title>
