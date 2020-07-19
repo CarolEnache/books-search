@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { StateContext } from '../App';
 
 import { BookList } from '../components/books';
 import { Header } from '../components/header';
 import { Pagination } from '../components/pagination';
 
 const BookSearchResults = ({ match }) => {
+  const { searchValue } = useContext(StateContext);
+
   const { page = 1 } = match.params;
   let history = useHistory();
   const [response, setResponse] = useState();
@@ -19,7 +23,12 @@ const BookSearchResults = ({ match }) => {
       const data = {
         page,
         itemsPerPage: 20,
-        filters: [{ type: 'all', values: [''] }],
+        filters: [
+          {
+            type: 'all',
+            values: [searchValue],
+          },
+        ],
       };
       const response = await fetch('http://nyx.vima.ekt.gr:3000/api/books', {
         method: 'POST',
@@ -33,7 +42,7 @@ const BookSearchResults = ({ match }) => {
       return setResponse(json);
     };
     fn();
-  }, [page]);
+  }, [page, searchValue]);
 
   return response ? (
     <>
