@@ -16,8 +16,7 @@ function App() {
       <StateContext.Provider value={state}>
         <Container>
           <Router>
-            <Route exact path='/' component={BookSearchResults} />
-            <Route path='/:page' component={BookSearchResults} />
+            <Route path='/:page?' component={BookSearchResults} />
           </Router>
         </Container>
       </StateContext.Provider>

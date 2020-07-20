@@ -22,7 +22,14 @@ const Search = () => {
         }
       />
       <InputGroup.Append>
-        <Button variant='outline-secondary'>Button</Button>
+        <Button
+          variant='outline-secondary'
+          onClick={() =>
+            dispatch({ type: 'SET_SEARCH_VALUE', searchValue: '' })
+          }
+        >
+          Reset
+        </Button>
       </InputGroup.Append>
     </InputGroup>
   );

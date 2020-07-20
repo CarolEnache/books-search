@@ -11,7 +11,7 @@ const Pagination = ({ page, numberOfPages, setPage }) => {
         Page {page} of {numberOfPages}
       </BootstrapPagination.Item>
       <BootstrapPagination.Next
-        onClick={() => setPage(page + 1)}
+        onClick={() => setPage(page === numberOfPages ? page : page + 1)}
       ></BootstrapPagination.Next>
     </BootstrapPagination>
   );
