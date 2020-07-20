@@ -5,7 +5,7 @@ import { DispatchContext, StateContext } from '../../App';
 
 const Search = () => {
   const dispatch = useContext(DispatchContext);
-  const { searchValue } = useContext(StateContext);
+  const { searchValue, history } = useContext(StateContext);
 
   return (
     <InputGroup className='mb-3'>
@@ -24,9 +24,11 @@ const Search = () => {
       <InputGroup.Append>
         <Button
           variant='outline-secondary'
-          onClick={() =>
-            dispatch({ type: 'SET_SEARCH_VALUE', searchValue: '' })
-          }
+          onClick={() => {
+            dispatch({ type: 'SET_SEARCH_VALUE', searchValue: '' });
+            dispatch({ type: 'SET_PAGE_VALUE', page: 1 });
+            history.push(`/${1}`);
+          }}
         >
           Reset
         </Button>

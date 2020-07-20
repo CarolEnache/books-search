@@ -9,7 +9,6 @@ const Book = ({
   book_publication_year,
   book_title,
   book_author,
-  id,
 }) => {
   return (
     <Card className='book__card'>

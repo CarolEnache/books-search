@@ -1,27 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
 
-import { StateContext } from '../App';
+import { DispatchContext, StateContext } from '../App';
 
 import { BookList } from '../components/books';
 import { Header } from '../components/header';
 import { Pagination } from '../components/pagination';
 
-const BookSearchResults = ({ match }) => {
-  const { searchValue } = useContext(StateContext);
-
-  const { page = 1 } = match.params;
-  let history = useHistory();
-  const [response, setResponse] = useState();
-
-  const setPage = (pageToBe) => {
-    history.push(`/${pageToBe}`);
-  };
+const BookSearchResults = () => {
+  const { searchValue, pageValue, response } = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
     const fn = async () => {
       const data = {
-        page,
+        page: pageValue,
         itemsPerPage: 20,
         filters: [
           {
@@ -39,20 +31,16 @@ const BookSearchResults = ({ match }) => {
       });
       const json = await response.json();
 
-      return setResponse(json);
+      return dispatch({ type: 'SET_RESPONSE', response: json });
     };
     fn();
-  }, [page, searchValue]);
+  }, [pageValue, searchValue, dispatch]);
 
   return response ? (
     <>
       <Header />
       <BookList response={response} />
-      <Pagination
-        page={Number(page)}
-        numberOfPages={Math.ceil(response.count / 20)}
-        setPage={setPage}
-      />
+      <Pagination />
     </>
   ) : null;
 };
