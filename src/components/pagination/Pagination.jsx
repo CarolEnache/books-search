@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Pagination as BootstrapPagination } from 'react-bootstrap';
@@ -18,13 +18,10 @@ const Pagination = () => {
     dispatch({ type: 'SET_PAGE_VALUE', page: pageToBe });
   };
 
-  useEffect(() => {
-    dispatch({ type: 'SET_HISTORY', history });
-  }, [dispatch, history]);
-
   if (pageValue > numberOfPages) {
     setPage(numberOfPages);
   }
+
   return (
     <BootstrapPagination>
       <BootstrapPagination.Prev

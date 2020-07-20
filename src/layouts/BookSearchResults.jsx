@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
+import { useFetch } from '../hooks';
 
 import { DispatchContext, StateContext } from '../App';
 
@@ -9,40 +10,18 @@ import { Pagination } from '../components/pagination';
 const BookSearchResults = () => {
   const { searchValue, pageValue, response } = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
+  useFetch(
+    { pageValue, searchValue, dispatch },
+    'http://nyx.vima.ekt.gr:3000/api/books'
+  );
 
-  useEffect(() => {
-    const fn = async () => {
-      const data = {
-        page: pageValue,
-        itemsPerPage: 20,
-        filters: [
-          {
-            type: 'all',
-            values: [searchValue],
-          },
-        ],
-      };
-      const response = await fetch('http://nyx.vima.ekt.gr:3000/api/books', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      const json = await response.json();
-
-      return dispatch({ type: 'SET_RESPONSE', response: json });
-    };
-    fn();
-  }, [pageValue, searchValue, dispatch]);
-
-  return response ? (
-    <>
+  return (
+    <div data-testid='book-search-results'>
       <Header />
       <BookList response={response} />
       <Pagination />
-    </>
-  ) : null;
+    </div>
+  );
 };
 
 export default BookSearchResults;

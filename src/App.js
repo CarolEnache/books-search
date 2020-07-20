@@ -13,7 +13,7 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Container>
+        <Container data-testid='app-container'>
           <Router>
             <Route path='/:page?' component={BookSearchResults} />
           </Router>

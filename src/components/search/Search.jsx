@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { DispatchContext, StateContext } from '../../App';
 
 const Search = () => {
   const dispatch = useContext(DispatchContext);
-  const { searchValue, history } = useContext(StateContext);
+  const { searchValue } = useContext(StateContext);
+  let history = useHistory();
 
   return (
     <InputGroup className='mb-3'>
