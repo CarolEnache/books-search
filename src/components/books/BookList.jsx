@@ -22,15 +22,21 @@ const reduceArrayIntoGroupsOf3 = (array = []) => {
   return arrayOfRows;
 };
 
-const BookList = ({ response = [] }) => {
+const BookList = ({ response = {} }) => {
   const arrayOfRows = !!response && reduceArrayIntoGroupsOf3(response.books);
 
   return (
     !!arrayOfRows &&
     arrayOfRows.map((row) => (
-      <Row key={Math.random()}>
+      <Row key={Math.random()} data-testid='book-list-row'>
         {row.map((book) => (
-          <Col xs='12' lg='4' className='book' key={book.id}>
+          <Col
+            xs='12'
+            lg='4'
+            className='book'
+            key={book.id}
+            data-testid='book-list-column'
+          >
             <Book {...book} />
           </Col>
         ))}

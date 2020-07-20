@@ -10,7 +10,7 @@ const Search = () => {
   let history = useHistory();
 
   return (
-    <InputGroup className='mb-3'>
+    <InputGroup className='mb-3' data-testid='book-search-form'>
       <FormControl
         placeholder='Search by book title'
         aria-label='Search by book title'

@@ -23,7 +23,7 @@ const Pagination = () => {
   }
 
   return (
-    <BootstrapPagination>
+    <BootstrapPagination data-testid='book-search-pagination'>
       <BootstrapPagination.Prev
         onClick={() => setPage(pageValue === 1 ? pageValue : pageValue - 1)}
       ></BootstrapPagination.Prev>
@@ -34,6 +34,7 @@ const Pagination = () => {
         onClick={() =>
           setPage(pageValue === numberOfPages ? pageValue : pageValue + 1)
         }
+        data-testid='book-search-pagination-next'
       ></BootstrapPagination.Next>
     </BootstrapPagination>
   );

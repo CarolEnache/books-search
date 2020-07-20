@@ -15,7 +15,9 @@ const Book = ({
       <Card.Body>
         <Card.Title>
           {book_title} ({book_publication_year}) <i>by</i>{' '}
-          <span className='book__authors'>{book_author.join(', ')}</span>
+          <span className='book__authors'>
+            {!!book_author && book_author.join(', ')}
+          </span>
         </Card.Title>
         <Card.Text>
           Publication place {book_publication_city}, {book_publication_country}{' '}
