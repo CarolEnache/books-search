@@ -6,7 +6,6 @@ import { initialState, reducer } from './state-management';
 import { Container } from 'react-bootstrap';
 
 import { BookSearchResults } from './layouts';
-import './App.css';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);

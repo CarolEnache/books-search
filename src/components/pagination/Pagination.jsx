@@ -2,6 +2,9 @@ import React from 'react';
 import { Pagination as BootstrapPagination } from 'react-bootstrap';
 
 const Pagination = ({ page, numberOfPages, setPage }) => {
+  if (page > numberOfPages) {
+    setPage(1);
+  }
   return (
     <BootstrapPagination>
       <BootstrapPagination.Prev
