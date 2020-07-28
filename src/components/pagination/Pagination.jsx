@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Pagination as BootstrapPagination } from 'react-bootstrap';
 
-import { DispatchContext, StateContext } from '../../App';
+import { StateContext } from '../../App';
 
 const Pagination = () => {
-  const { pageValue, response } = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
+  const { response } = useContext(StateContext);
+  const [pageValue, setPageValue] = useState(1);
 
   const numberOfPages = Math.ceil(response.count / 20);
 
@@ -15,25 +15,33 @@ const Pagination = () => {
 
   const setPage = (pageToBe) => {
     history.push(`/${pageToBe}`);
-    dispatch({ type: 'SET_PAGE_VALUE', page: pageToBe });
+    setPageValue(pageToBe);
   };
 
   if (pageValue > numberOfPages) {
     setPage(numberOfPages);
   }
 
+  useEffect(() => {
+    const pathname = parseInt(history.location.pathname.replace(/[/]/g, ''));
+    const pageValue = isNaN(pathname) ? 1 : pathname;
+    setPageValue(pageValue);
+    // eslint-disable-next-line
+  }, []);
+
+  const decrementPage = pageValue === numberOfPages ? pageValue : pageValue - 1;
+  const incrementPage = pageValue === numberOfPages ? pageValue : pageValue + 1;
+
   return (
     <BootstrapPagination data-testid='book-search-pagination'>
       <BootstrapPagination.Prev
-        onClick={() => setPage(pageValue === 1 ? pageValue : pageValue - 1)}
+        onClick={() => setPage(decrementPage)}
       ></BootstrapPagination.Prev>
       <BootstrapPagination.Item active>
-        Page {pageValue} of {numberOfPages}
+        Page {pageValue} of {isNaN(numberOfPages) ? '...' : numberOfPages}
       </BootstrapPagination.Item>
       <BootstrapPagination.Next
-        onClick={() =>
-          setPage(pageValue === numberOfPages ? pageValue : pageValue + 1)
-        }
+        onClick={() => setPage(incrementPage)}
         data-testid='book-search-pagination-next'
       ></BootstrapPagination.Next>
     </BootstrapPagination>
